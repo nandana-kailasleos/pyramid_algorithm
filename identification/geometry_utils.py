@@ -22,15 +22,16 @@ def angle_between(v1, v2):
 def compute_edges(v1, v2, v3, v4):
     """
     Compute the six angular distances.
+    Returns a NumPy array of six edge lengths (radians).
     """
 
     edges = np.array([
-        angle_between(v1, v2),
-        angle_between(v1, v3),
-        angle_between(v1, v4),
-        angle_between(v2, v3),
-        angle_between(v2, v4),
-        angle_between(v3, v4)
+        angle_between(v1, v2),  # AB
+        angle_between(v1, v3),  # AC
+        angle_between(v1, v4),  # AD
+        angle_between(v2, v3),  # BC
+        angle_between(v2, v4),  # BD
+        angle_between(v3, v4)   # CD
     ])
 
     return edges
@@ -38,26 +39,51 @@ def compute_edges(v1, v2, v3, v4):
 
 def compute_invariants(v1, v2, v3, v4):
     """
-    Compute Pyramid invariants.
+    Compute order-independent Pyramid invariants.
+
+    Returns
+    -------
+    largest_edge : float
+        Largest of the six edges.
+
+    ratio1 : float
+        Second-largest edge divided by largest edge.
+
+    ratio2 : float
+        Third-largest edge divided by largest edge.
     """
 
     edges = compute_edges(v1, v2, v3, v4)
 
-    edges.sort()
+    # Sort edges in ascending order
+    edges = np.sort(edges)
 
-    e1 = edges[0]
-    e2 = edges[1]
-    e6 = edges[5]
+    # Largest edge
+    largest_edge = edges[-1]
 
-    ratio1 = e1 / e6
-    ratio2 = e2 / e6
+    # Ratios based on next two largest edges
+    ratio1 = edges[-2] / largest_edge
+    ratio2 = edges[-3] / largest_edge
 
-    return e6, ratio1, ratio2
+    return largest_edge, ratio1, ratio2
 
 
 def rms_error(observed_edges, catalog_edges):
     """
-    RMS error between two edge sets.
+    Compute RMS error between two sets of six edges.
+
+    Parameters
+    ----------
+    observed_edges : array-like
+        Six observed edge lengths.
+
+    catalog_edges : array-like
+        Six catalog edge lengths.
+
+    Returns
+    -------
+    float
+        RMS error in radians.
     """
 
     observed_edges = np.sort(observed_edges)

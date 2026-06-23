@@ -3,6 +3,7 @@
 # ============================================================
 
 import numpy as np
+
 from identification.geometry_utils import (
     compute_edges,
     rms_error
@@ -12,22 +13,15 @@ from identification.geometry_utils import (
 def verify_candidate(
         observed_vectors,
         catalog_vectors,
-        threshold=np.radians(0.01)):
+        threshold=np.radians(0.005)):
     """
     Verify one candidate pyramid.
-
-    Parameters
-    ----------
-    observed_vectors : list of 4 observed vectors
-
-    catalog_vectors : list of 4 catalog vectors
-
-    threshold : RMS error threshold (radians)
 
     Returns
     -------
     valid : bool
     error : float
+    confidence : float
     """
 
     obs_edges = compute_edges(
@@ -49,4 +43,10 @@ def verify_candidate(
         cat_edges
     )
 
-    return error < threshold, error
+    confidence = 1.0 / (1.0 + np.degrees(error))
+
+    return (
+        error < threshold,
+        error,
+        confidence
+    )
