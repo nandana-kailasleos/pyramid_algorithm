@@ -47,7 +47,7 @@ def identify(v1, v2, v3, v4):
             continue
 
         # ----------------------------------------------------
-        # Verify candidate pyramids
+        # Verify every candidate
         # ----------------------------------------------------
         for c in candidates:
 
@@ -78,7 +78,18 @@ def identify(v1, v2, v3, v4):
                     )
                 )
 
-                # Stop after first verified match
-                return verified
+    # --------------------------------------------------------
+    # No valid match found
+    # --------------------------------------------------------
+    if len(verified) == 0:
+        return []
 
-    return verified
+    # --------------------------------------------------------
+    # Sort by RMS error (smallest first)
+    # --------------------------------------------------------
+    verified.sort(key=lambda x: x[4])
+
+    # --------------------------------------------------------
+    # Return only the best match
+    # --------------------------------------------------------
+    return [verified[0]]
