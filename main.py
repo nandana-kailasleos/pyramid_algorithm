@@ -7,6 +7,7 @@
 import numpy as np
 from identification.pyramid import identify
 
+
 def main():
 
     print("\nPyramid Star Identification\n")
@@ -47,17 +48,20 @@ def main():
     print("\nCandidate catalog matches:\n")
 
     if len(candidates) == 0:
+
         print("No match found.")
 
     else:
 
         for i, c in enumerate(candidates, 1):
 
-            s1, s2, s3, s4 = c
+            s1, s2, s3, s4, error, confidence = c
 
             print(
                 f"{i}. "
                 f"({s1}, {s2}, {s3}, {s4})"
+                f"   RMS Error = {error:.8f}°"
+                f"   Confidence = {confidence:.6f}"
             )
 
 

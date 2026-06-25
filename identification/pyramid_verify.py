@@ -13,7 +13,7 @@ from identification.geometry_utils import (
 def verify_candidate(
         observed_vectors,
         catalog_vectors,
-        threshold=np.radians(0.005)):
+        threshold=np.radians(0.05)):
     """
     Verify one candidate pyramid.
 

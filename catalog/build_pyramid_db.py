@@ -84,14 +84,14 @@ for i, j, k, l in itertools.combinations(range(n), 4):
 
     edges.sort()
 
-    e1 = edges[0]
-    e2 = edges[1]
     e6 = edges[-1]
+    e5 = edges[-2]
+    e4 = edges[-3]
 
     largest_edge.append(e6)
 
-    ratio1.append(e1 / e6)
-    ratio2.append(e2 / e6)
+    ratio1.append(e5 / e6)
+    ratio2.append(e4 / e6)
 
     star1.append(indices[i])
     star2.append(indices[j])

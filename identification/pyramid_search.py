@@ -25,8 +25,8 @@ star4 = db["star4"]
 def search_pyramid(edge,
                    r1,
                    r2,
-                   edge_tol=0.001,
-                   ratio_tol=0.01):
+                   edge_tol=0.003,
+                   ratio_tol=0.02):
 
     candidates = []
 
